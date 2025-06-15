@@ -1,8 +1,6 @@
 import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
-import { auth, googleProvider } from "../../../constants/firebase";
+import { auth } from "../../../constants/firebase";
 import { useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faGoogle } from "@fortawesome/free-brands-svg-icons";
 import { Link, useNavigate } from "react-router-dom";
 
 const Login = () => {
@@ -28,25 +26,12 @@ const Login = () => {
     }
   };
 
-  const handleGoogleLogin = async (e) => {
-    e.preventDefault();
-    setErrorMessage("");
-    setStatusMessage("");
-
-    try {
-      const result = await signInWithPopup(auth, googleProvider);
-      setStatusMessage(`Signed in with Google as ${result.user.displayName}`);
-      navigate("/");
-    } catch (error) {
-      setErrorMessage("Google Login failed.");
-    }
-  };
-
   return (
     <div className="flex items-center justify-center px-4 sm:min-h-screen bg-gray-100">
-      <div className="w-full max-w-sm 
-                      sm:bg-white sm:p-6 sm:rounded-xl sm:shadow-md sm:space-y-5">
-
+      <div
+        className="w-full max-w-sm 
+                      sm:bg-white sm:p-6 sm:rounded-xl sm:shadow-md sm:space-y-5"
+      >
         {/* Heading */}
         <h1 className="text-xl sm:text-2xl font-semibold text-center mt-6 sm:mt-0">
           Welcome Back!
@@ -54,15 +39,6 @@ const Login = () => {
         <p className="text-center text-gray-600 text-sm sm:text-base">
           Say hi to your friends — they’re waiting!
         </p>
-
-        {/* Google Login */}
-        <button
-          onClick={handleGoogleLogin}
-          className="w-full flex items-center justify-center gap-2 bg-red-500 text-white py-2 rounded-lg hover:bg-red-600 transition text-sm sm:text-base mt-4"
-        >
-          <FontAwesomeIcon icon={faGoogle} />
-          Continue with Google
-        </button>
 
         {/* Form */}
         <form
@@ -87,7 +63,7 @@ const Login = () => {
           />
           <button
             type="submit"
-            className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition text-sm sm:text-base"
+            className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition text-sm sm:text-base cursor-pointer"
           >
             Sign In
           </button>
@@ -95,10 +71,14 @@ const Login = () => {
 
         {/* Messages */}
         {errorMessage && (
-          <p className="text-red-500 text-center text-sm mt-2">{errorMessage}</p>
+          <p className="text-red-500 text-center text-sm mt-2">
+            {errorMessage}
+          </p>
         )}
         {statusMessage && (
-          <p className="text-green-500 text-center text-sm mt-2">{statusMessage}</p>
+          <p className="text-green-500 text-center text-sm mt-2">
+            {statusMessage}
+          </p>
         )}
 
         {/* Link */}

@@ -1,8 +1,6 @@
 import { createUserWithEmailAndPassword, signInWithPopup } from "firebase/auth";
-import { auth, googleProvider } from "../../../constants/firebase";
+import { auth } from "../../../constants/firebase";
 import { useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faGoogle } from "@fortawesome/free-brands-svg-icons";
 import { Link } from "react-router-dom";
 
 const SignUp = () => {
@@ -20,19 +18,6 @@ const SignUp = () => {
       setPassword("");
     } catch (error) {
       setErrorMessage(getCustomErrorMessage(error.code));
-    }
-  };
-
-  const handleGoogleLogin = async (e) => {
-    e.preventDefault();
-    setErrorMessage("");
-
-    try {
-      await signInWithPopup(auth, googleProvider);
-      setEmail("");
-      setPassword("");
-    } catch (err) {
-      setErrorMessage(getCustomErrorMessage(err.code));
     }
   };
 
@@ -61,14 +46,6 @@ const SignUp = () => {
           Create a new account to chat with your friends!
         </p>
 
-        <button
-          onClick={handleGoogleLogin}
-          className="w-full flex items-center justify-center gap-2 bg-red-500 text-white py-2 rounded-lg hover:bg-red-600 transition mb-4"
-        >
-          <FontAwesomeIcon icon={faGoogle} />
-          Continue with Google
-        </button>
-
         <form onSubmit={handleAuthentication} className="flex flex-col gap-4">
           <input
             type="email"
@@ -88,7 +65,7 @@ const SignUp = () => {
           />
           <button
             type="submit"
-            className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition"
+            className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition cursor-pointer"
           >
             Sign Up
           </button>

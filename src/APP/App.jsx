@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
-import SignUp from "./Components/Login/Signup";
-import Login from "./Components/Login/Login";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "../constants/firebase";
+import Login from "./Components/Login/Login";
 
 const App = () => {
   const [user, setUser] = useState(null);
@@ -22,19 +21,21 @@ const App = () => {
   if (!user) {
     return (
       <div className="flex items-center justify-center min-h-screen bg-gray-100">
-        <SignUp />
+        <Login />
       </div>
     );
   }
 
+  const userName = user.email.split("@")[0];
+
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 text-center">
       <h1 className="text-2xl font-semibold mb-4 text-gray-800">
-        Welcome, {user.displayName || user.email}!
+        Welcome, {userName}!
       </h1>
       <button
         onClick={handleLogout}
-        className="bg-red-500 text-white px-6 py-2 rounded-lg hover:bg-red-600 transition"
+        className="bg-red-500 text-white px-6 py-2 rounded-lg hover:bg-red-600 transition cursor-pointer"
       >
         Logout
       </button>
